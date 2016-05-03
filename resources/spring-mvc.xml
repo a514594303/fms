@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+
+	<!-- 配置组件扫描，以完成Bean创建和自动依赖注入的功能 -->
+	<context:component-scan base-package="com.ufc.fm.controller" />
+	<context:component-scan base-package="com.ufc.fm.service.impl" />
+	<context:component-scan base-package="com.ufc.fm.service.simimpl" />
+	<context:component-scan base-package="com.ufc.fm.rbac.service.impl" />
+	<context:component-scan base-package="com.ufc.fm.rbac.service.simimpl" />
+		 
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<mvc:annotation-driven />
+
+	<!-- 对模型视图配置 -->
+	<bean id="chartViewResolver" class="com.ufc.fm.view.ChartViewResolver">
+        <property name="chartView">  
+            <bean class="com.ufc.fm.view.ChartView"/>  
+        </property>
+		<property name="chartSuffix" value=".chart" />
+	</bean>
+	<bean id="jsonViewResolver" class="com.ufc.fm.view.JsonViewResolver">
+        <property name="jsonView">  
+            <bean class="com.ufc.fm.view.JsonView"/>  
+        </property>		
+		<property name="formatPrint" value="true" />	
+		<property name="jsonSuffix" value=".json" />			
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 自定义拦截链配置 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/fmapp/**" />
+			<bean class="com.ufc.fm.controller.interceptor.FmappInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/fmweb/**" />
+			<bean class="com.ufc.fm.controller.interceptor.FmwebInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	 <!-- SpringMVC上传文件时，配置MultipartResolver处理器 --> 
+	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="defaultEncoding" value="utf-8" />
+	       <property name="maxUploadSize" value="10485760000" />
+	       <property name="maxInMemorySize" value="40960" />
+	 </bean>	
+
+	<mvc:resources mapping="/docs/**" location="/docs/"></mvc:resources>
+	<mvc:resources mapping="/images/**" location="/images/"></mvc:resources>
+	
+</beans>

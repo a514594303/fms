@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanRateMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanRate" >
+    <id column="rate_id" property="rateId" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="base _rate" property="baseRate" jdbcType="VARCHAR" />
+    <result column="loan_type" property="loanType" jdbcType="VARCHAR" />
+    <result column="loan_period" property="loanPeriod" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rate_id, date, version, "base _rate", loan_type, loan_period, begin_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanRateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan_rate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan_rate
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan_rate
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanRateExample" >
+    delete from fm_loan_rate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanRate" >
+    insert into fm_loan_rate (rate_id, date, version, 
+      "base _rate", loan_type, loan_period, 
+      begin_date)
+    values (#{rateId,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{baseRate,jdbcType=VARCHAR}, #{loanType,jdbcType=VARCHAR}, #{loanPeriod,jdbcType=VARCHAR}, 
+      #{beginDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanRate" >
+    insert into fm_loan_rate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateId != null" >
+        rate_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="baseRate != null" >
+        "base _rate",
+      </if>
+      <if test="loanType != null" >
+        loan_type,
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateId != null" >
+        #{rateId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="baseRate != null" >
+        #{baseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanType != null" >
+        #{loanType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        #{loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanRateExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan_rate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan_rate
+    <set >
+      <if test="record.rateId != null" >
+        rate_id = #{record.rateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseRate != null" >
+        "base _rate" = #{record.baseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanType != null" >
+        loan_type = #{record.loanType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPeriod != null" >
+        loan_period = #{record.loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan_rate
+    set rate_id = #{record.rateId,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
+      "base _rate" = #{record.baseRate,jdbcType=VARCHAR},
+      loan_type = #{record.loanType,jdbcType=VARCHAR},
+      loan_period = #{record.loanPeriod,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanRate" >
+    update fm_loan_rate
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="baseRate != null" >
+        "base _rate" = #{baseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanType != null" >
+        loan_type = #{loanType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period = #{loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanRate" >
+    update fm_loan_rate
+    set date = #{date,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      "base _rate" = #{baseRate,jdbcType=VARCHAR},
+      loan_type = #{loanType,jdbcType=VARCHAR},
+      loan_period = #{loanPeriod,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=VARCHAR}
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </update>
+</mapper>

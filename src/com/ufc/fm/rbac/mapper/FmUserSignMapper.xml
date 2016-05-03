@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.rbac.mapper.FmUserSignMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.rbac.po.FmUserSign" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="SIGN_DATE" property="signDate" jdbcType="VARCHAR" />
+    <result column="SIGNIN_TIME" property="signinTime" jdbcType="VARCHAR" />
+    <result column="SIGNOUT_TIME" property="signoutTime" jdbcType="VARCHAR" />
+    <result column="USER_NO" property="userNo" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="USER_ACCOUNT" property="userAccount" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SESSION_ID, SIGN_DATE, SIGNIN_TIME, SIGNOUT_TIME, USER_NO, ORG_NO, USER_ACCOUNT, 
+    STATE, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.rbac.po.FmUserSignExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FM_USER_SIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FM_USER_SIGN
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FM_USER_SIGN
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.rbac.po.FmUserSignExample" >
+    delete from FM_USER_SIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.rbac.po.FmUserSign" >
+    insert into FM_USER_SIGN (ID, SESSION_ID, SIGN_DATE, 
+      SIGNIN_TIME, SIGNOUT_TIME, USER_NO, 
+      ORG_NO, USER_ACCOUNT, STATE, 
+      REMARK)
+    values (#{id,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{signDate,jdbcType=VARCHAR}, 
+      #{signinTime,jdbcType=VARCHAR}, #{signoutTime,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{orgNo,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.rbac.po.FmUserSign" >
+    insert into FM_USER_SIGN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID,
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE,
+      </if>
+      <if test="signinTime != null" >
+        SIGNIN_TIME,
+      </if>
+      <if test="signoutTime != null" >
+        SIGNOUT_TIME,
+      </if>
+      <if test="userNo != null" >
+        USER_NO,
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO,
+      </if>
+      <if test="userAccount != null" >
+        USER_ACCOUNT,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=VARCHAR},
+      </if>
+      <if test="signinTime != null" >
+        #{signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutTime != null" >
+        #{signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.rbac.po.FmUserSignExample" resultType="java.lang.Integer" >
+    select count(*) from FM_USER_SIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FM_USER_SIGN
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionId != null" >
+        SESSION_ID = #{record.sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        SIGN_DATE = #{record.signDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinTime != null" >
+        SIGNIN_TIME = #{record.signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutTime != null" >
+        SIGNOUT_TIME = #{record.signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNo != null" >
+        USER_NO = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgNo != null" >
+        ORG_NO = #{record.orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAccount != null" >
+        USER_ACCOUNT = #{record.userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FM_USER_SIGN
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SESSION_ID = #{record.sessionId,jdbcType=VARCHAR},
+      SIGN_DATE = #{record.signDate,jdbcType=VARCHAR},
+      SIGNIN_TIME = #{record.signinTime,jdbcType=VARCHAR},
+      SIGNOUT_TIME = #{record.signoutTime,jdbcType=VARCHAR},
+      USER_NO = #{record.userNo,jdbcType=VARCHAR},
+      ORG_NO = #{record.orgNo,jdbcType=VARCHAR},
+      USER_ACCOUNT = #{record.userAccount,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.rbac.po.FmUserSign" >
+    update FM_USER_SIGN
+    <set >
+      <if test="sessionId != null" >
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE = #{signDate,jdbcType=VARCHAR},
+      </if>
+      <if test="signinTime != null" >
+        SIGNIN_TIME = #{signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutTime != null" >
+        SIGNOUT_TIME = #{signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        USER_NO = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.rbac.po.FmUserSign" >
+    update FM_USER_SIGN
+    set SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      SIGN_DATE = #{signDate,jdbcType=VARCHAR},
+      SIGNIN_TIME = #{signinTime,jdbcType=VARCHAR},
+      SIGNOUT_TIME = #{signoutTime,jdbcType=VARCHAR},
+      USER_NO = #{userNo,jdbcType=VARCHAR},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

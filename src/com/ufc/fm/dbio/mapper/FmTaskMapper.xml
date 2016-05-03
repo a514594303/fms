@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmTask" >
+    <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <id column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="TASK_STATUS" property="taskStatus" jdbcType="VARCHAR" />
+    <result column="TXN_TYPE" property="txnType" jdbcType="VARCHAR" />
+    <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUST_ID, TASK_ID, CREATE_DATE, TASK_STATUS, TXN_TYPE, PROD_ID, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FM_TASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmTaskKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from FM_TASK
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmTaskKey" >
+    delete from FM_TASK
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmTaskExample" >
+    delete from FM_TASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmTask" >
+    insert into FM_TASK (CUST_ID, TASK_ID, CREATE_DATE, 
+      TASK_STATUS, TXN_TYPE, PROD_ID, 
+      REMARK)
+    values (#{custId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{taskStatus,jdbcType=VARCHAR}, #{txnType,jdbcType=VARCHAR}, #{prodId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmTask" >
+    insert into FM_TASK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="taskStatus != null" >
+        TASK_STATUS,
+      </if>
+      <if test="txnType != null" >
+        TXN_TYPE,
+      </if>
+      <if test="prodId != null" >
+        PROD_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="txnType != null" >
+        #{txnType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        #{prodId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmTaskExample" resultType="java.lang.Integer" >
+    select count(*) from FM_TASK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FM_TASK
+    <set >
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null" >
+        TASK_ID = #{record.taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null" >
+        TASK_STATUS = #{record.taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txnType != null" >
+        TXN_TYPE = #{record.txnType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodId != null" >
+        PROD_ID = #{record.prodId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FM_TASK
+    set CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      TASK_ID = #{record.taskId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      TASK_STATUS = #{record.taskStatus,jdbcType=VARCHAR},
+      TXN_TYPE = #{record.txnType,jdbcType=VARCHAR},
+      PROD_ID = #{record.prodId,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmTask" >
+    update FM_TASK
+    <set >
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null" >
+        TASK_STATUS = #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="txnType != null" >
+        TXN_TYPE = #{txnType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        PROD_ID = #{prodId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmTask" >
+    update FM_TASK
+    set CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      TASK_STATUS = #{taskStatus,jdbcType=VARCHAR},
+      TXN_TYPE = #{txnType,jdbcType=VARCHAR},
+      PROD_ID = #{prodId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </update>
+  
+	<select id="getNextTaskId" resultType="java.lang.String" parameterType="java.lang.String" >
+	    select  max(TASK_ID)+1  from FM_TASK 
+	    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  	</select>
+
+	<select id="queryTasks" resultMap="BaseResultMap" parameterType="map">
+		select FT.CUST_ID, FT.TASK_ID, FT.CREATE_DATE, FT.TASK_STATUS, FT.TXN_TYPE, FT.PROD_ID, FT.REMARK
+		from FM_TASK FT
+		left join FM_CUST FC ON FC.CUST_ID = FT.CUST_ID
+		where 1=1
+		<if test="custId != null and custId != ''">
+			and FT.CUST_ID = #{custId}
+		</if>
+		<if test="name != null and name != ''">
+			and FC.NAME like CONCAT('%',#{name},'%')
+		</if>
+		<if test="identityType != null and identityType != ''">
+			and FC.IDENTITY_TYPE = #{identityType}
+		</if>
+		<if test="identityCard != null and identityCard != ''">
+			and FC.IDENTITY_CARD = #{identityCard}
+		</if>
+		<if test="mobilePhone != null and mobilePhone != ''">
+			and FC.MOBILE_PHONE = #{mobilePhone}
+		</if>
+		<if test="homePhone != null and homePhone != ''">
+			and FC.HOME_PHONE = #{homePhone}
+		</if>
+		<if test="taskStatus != null and taskStatus != ''">
+			and FT.TASK_STATUS = #{taskStatus}
+		</if>
+	</select>
+
+  
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanMortgMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanMortg" >
+    <id column="mort_id" property="mortId" jdbcType="INTEGER" />
+    <result column="loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="pledge_name" property="pledgeName" jdbcType="VARCHAR" />
+    <result column="cny" property="cny" jdbcType="VARCHAR" />
+    <result column="vou_num1" property="vouNum1" jdbcType="VARCHAR" />
+    <result column="pledge_price1" property="pledgePrice1" jdbcType="VARCHAR" />
+    <result column="vou_num2" property="vouNum2" jdbcType="VARCHAR" />
+    <result column="pledge_price2" property="pledgePrice2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mort_id, loan_id, pledge_name, cny, vou_num1, pledge_price1, vou_num2, pledge_price2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanMortgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan_mortg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan_mortg
+    where mort_id = #{mortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan_mortg
+    where mort_id = #{mortId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanMortgExample" >
+    delete from fm_loan_mortg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanMortg" >
+    <selectKey resultType="java.lang.Integer" keyProperty="mortId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_mortg (loan_id, pledge_name, cny, 
+      vou_num1, pledge_price1, vou_num2, 
+      pledge_price2)
+    values (#{loanId,jdbcType=VARCHAR}, #{pledgeName,jdbcType=VARCHAR}, #{cny,jdbcType=VARCHAR}, 
+      #{vouNum1,jdbcType=VARCHAR}, #{pledgePrice1,jdbcType=VARCHAR}, #{vouNum2,jdbcType=VARCHAR}, 
+      #{pledgePrice2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanMortg" >
+    <selectKey resultType="java.lang.Integer" keyProperty="mortId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_mortg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="pledgeName != null" >
+        pledge_name,
+      </if>
+      <if test="cny != null" >
+        cny,
+      </if>
+      <if test="vouNum1 != null" >
+        vou_num1,
+      </if>
+      <if test="pledgePrice1 != null" >
+        pledge_price1,
+      </if>
+      <if test="vouNum2 != null" >
+        vou_num2,
+      </if>
+      <if test="pledgePrice2 != null" >
+        pledge_price2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeName != null" >
+        #{pledgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cny != null" >
+        #{cny,jdbcType=VARCHAR},
+      </if>
+      <if test="vouNum1 != null" >
+        #{vouNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgePrice1 != null" >
+        #{pledgePrice1,jdbcType=VARCHAR},
+      </if>
+      <if test="vouNum2 != null" >
+        #{vouNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgePrice2 != null" >
+        #{pledgePrice2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanMortgExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan_mortg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan_mortg
+    <set >
+      <if test="record.mortId != null" >
+        mort_id = #{record.mortId,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanId != null" >
+        loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pledgeName != null" >
+        pledge_name = #{record.pledgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cny != null" >
+        cny = #{record.cny,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vouNum1 != null" >
+        vou_num1 = #{record.vouNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pledgePrice1 != null" >
+        pledge_price1 = #{record.pledgePrice1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vouNum2 != null" >
+        vou_num2 = #{record.vouNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pledgePrice2 != null" >
+        pledge_price2 = #{record.pledgePrice2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan_mortg
+    set mort_id = #{record.mortId,jdbcType=INTEGER},
+      loan_id = #{record.loanId,jdbcType=VARCHAR},
+      pledge_name = #{record.pledgeName,jdbcType=VARCHAR},
+      cny = #{record.cny,jdbcType=VARCHAR},
+      vou_num1 = #{record.vouNum1,jdbcType=VARCHAR},
+      pledge_price1 = #{record.pledgePrice1,jdbcType=VARCHAR},
+      vou_num2 = #{record.vouNum2,jdbcType=VARCHAR},
+      pledge_price2 = #{record.pledgePrice2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanMortg" >
+    update fm_loan_mortg
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeName != null" >
+        pledge_name = #{pledgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cny != null" >
+        cny = #{cny,jdbcType=VARCHAR},
+      </if>
+      <if test="vouNum1 != null" >
+        vou_num1 = #{vouNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgePrice1 != null" >
+        pledge_price1 = #{pledgePrice1,jdbcType=VARCHAR},
+      </if>
+      <if test="vouNum2 != null" >
+        vou_num2 = #{vouNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgePrice2 != null" >
+        pledge_price2 = #{pledgePrice2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mort_id = #{mortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanMortg" >
+    update fm_loan_mortg
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      pledge_name = #{pledgeName,jdbcType=VARCHAR},
+      cny = #{cny,jdbcType=VARCHAR},
+      vou_num1 = #{vouNum1,jdbcType=VARCHAR},
+      pledge_price1 = #{pledgePrice1,jdbcType=VARCHAR},
+      vou_num2 = #{vouNum2,jdbcType=VARCHAR},
+      pledge_price2 = #{pledgePrice2,jdbcType=VARCHAR}
+    where mort_id = #{mortId,jdbcType=INTEGER}
+  </update>
+</mapper>

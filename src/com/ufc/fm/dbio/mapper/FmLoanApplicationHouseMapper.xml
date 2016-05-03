@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanApplicationHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanApplicationHouse" >
+    <id column="house_id" property="houseId" jdbcType="INTEGER" />
+    <result column="loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="house_addr" property="houseAddr" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="cell_name" property="cellName" jdbcType="VARCHAR" />
+    <result column="house_num" property="houseNum" jdbcType="VARCHAR" />
+    <result column="builder" property="builder" jdbcType="VARCHAR" />
+    <result column="compl_time" property="complTime" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="house_age" property="houseAge" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="VARCHAR" />
+    <result column="down_pay" property="downPay" jdbcType="VARCHAR" />
+    <result column="house_price" property="housePrice" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    house_id, loan_id, house_addr, postcode, cell_name, house_num, builder, compl_time, 
+    trans_type, house_age, house_type, build_area, down_pay, house_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan_application_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan_application_house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan_application_house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouseExample" >
+    delete from fm_loan_application_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="houseId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_application_house (loan_id, house_addr, postcode, 
+      cell_name, house_num, builder, 
+      compl_time, trans_type, house_age, 
+      house_type, build_area, down_pay, 
+      house_price)
+    values (#{loanId,jdbcType=VARCHAR}, #{houseAddr,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{cellName,jdbcType=VARCHAR}, #{houseNum,jdbcType=VARCHAR}, #{builder,jdbcType=VARCHAR}, 
+      #{complTime,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, #{houseAge,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=VARCHAR}, #{buildArea,jdbcType=VARCHAR}, #{downPay,jdbcType=VARCHAR}, 
+      #{housePrice,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="houseId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_application_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="houseAddr != null" >
+        house_addr,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="cellName != null" >
+        cell_name,
+      </if>
+      <if test="houseNum != null" >
+        house_num,
+      </if>
+      <if test="builder != null" >
+        builder,
+      </if>
+      <if test="complTime != null" >
+        compl_time,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="houseAge != null" >
+        house_age,
+      </if>
+      <if test="houseType != null" >
+        house_type,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="downPay != null" >
+        down_pay,
+      </if>
+      <if test="housePrice != null" >
+        house_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddr != null" >
+        #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cellName != null" >
+        #{cellName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNum != null" >
+        #{houseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="builder != null" >
+        #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="complTime != null" >
+        #{complTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAge != null" >
+        #{houseAge,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="downPay != null" >
+        #{downPay,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null" >
+        #{housePrice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouseExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan_application_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan_application_house
+    <set >
+      <if test="record.houseId != null" >
+        house_id = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanId != null" >
+        loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseAddr != null" >
+        house_addr = #{record.houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        postcode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cellName != null" >
+        cell_name = #{record.cellName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseNum != null" >
+        house_num = #{record.houseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.builder != null" >
+        builder = #{record.builder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complTime != null" >
+        compl_time = #{record.complTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transType != null" >
+        trans_type = #{record.transType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseAge != null" >
+        house_age = #{record.houseAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseType != null" >
+        house_type = #{record.houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null" >
+        build_area = #{record.buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downPay != null" >
+        down_pay = #{record.downPay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housePrice != null" >
+        house_price = #{record.housePrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan_application_house
+    set house_id = #{record.houseId,jdbcType=INTEGER},
+      loan_id = #{record.loanId,jdbcType=VARCHAR},
+      house_addr = #{record.houseAddr,jdbcType=VARCHAR},
+      postcode = #{record.postcode,jdbcType=VARCHAR},
+      cell_name = #{record.cellName,jdbcType=VARCHAR},
+      house_num = #{record.houseNum,jdbcType=VARCHAR},
+      builder = #{record.builder,jdbcType=VARCHAR},
+      compl_time = #{record.complTime,jdbcType=VARCHAR},
+      trans_type = #{record.transType,jdbcType=VARCHAR},
+      house_age = #{record.houseAge,jdbcType=VARCHAR},
+      house_type = #{record.houseType,jdbcType=VARCHAR},
+      build_area = #{record.buildArea,jdbcType=VARCHAR},
+      down_pay = #{record.downPay,jdbcType=VARCHAR},
+      house_price = #{record.housePrice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouse" >
+    update fm_loan_application_house
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddr != null" >
+        house_addr = #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cellName != null" >
+        cell_name = #{cellName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNum != null" >
+        house_num = #{houseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="builder != null" >
+        builder = #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="complTime != null" >
+        compl_time = #{complTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAge != null" >
+        house_age = #{houseAge,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=VARCHAR},
+      </if>
+      <if test="downPay != null" >
+        down_pay = #{downPay,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null" >
+        house_price = #{housePrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanApplicationHouse" >
+    update fm_loan_application_house
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      house_addr = #{houseAddr,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      cell_name = #{cellName,jdbcType=VARCHAR},
+      house_num = #{houseNum,jdbcType=VARCHAR},
+      builder = #{builder,jdbcType=VARCHAR},
+      compl_time = #{complTime,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      house_age = #{houseAge,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=VARCHAR},
+      down_pay = #{downPay,jdbcType=VARCHAR},
+      house_price = #{housePrice,jdbcType=VARCHAR}
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </update>
+</mapper>

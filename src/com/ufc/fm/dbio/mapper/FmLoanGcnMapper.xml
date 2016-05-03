@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanGcnMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanGcn" >
+    <id column="gcn_id" property="gcnId" jdbcType="INTEGER" />
+    <result column="loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="guar_company_name" property="guarCompanyName" jdbcType="VARCHAR" />
+    <result column="guar_company_phone" property="guarCompanyPhone" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="reg_capital" property="regCapital" jdbcType="VARCHAR" />
+    <result column="credit_grade" property="creditGrade" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gcn_id, loan_id, guar_company_name, guar_company_phone, addr, company_code, reg_capital, 
+    credit_grade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanGcnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan_gcn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan_gcn
+    where gcn_id = #{gcnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan_gcn
+    where gcn_id = #{gcnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanGcnExample" >
+    delete from fm_loan_gcn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanGcn" >
+    <selectKey resultType="java.lang.Integer" keyProperty="gcnId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_gcn (loan_id, guar_company_name, guar_company_phone, 
+      addr, company_code, reg_capital, 
+      credit_grade)
+    values (#{loanId,jdbcType=VARCHAR}, #{guarCompanyName,jdbcType=VARCHAR}, #{guarCompanyPhone,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, #{regCapital,jdbcType=VARCHAR}, 
+      #{creditGrade,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanGcn" >
+    <selectKey resultType="java.lang.Integer" keyProperty="gcnId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_gcn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="guarCompanyName != null" >
+        guar_company_name,
+      </if>
+      <if test="guarCompanyPhone != null" >
+        guar_company_phone,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="regCapital != null" >
+        reg_capital,
+      </if>
+      <if test="creditGrade != null" >
+        credit_grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="guarCompanyName != null" >
+        #{guarCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="guarCompanyPhone != null" >
+        #{guarCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regCapital != null" >
+        #{regCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="creditGrade != null" >
+        #{creditGrade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanGcnExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan_gcn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan_gcn
+    <set >
+      <if test="record.gcnId != null" >
+        gcn_id = #{record.gcnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanId != null" >
+        loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guarCompanyName != null" >
+        guar_company_name = #{record.guarCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guarCompanyPhone != null" >
+        guar_company_phone = #{record.guarCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null" >
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyCode != null" >
+        company_code = #{record.companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regCapital != null" >
+        reg_capital = #{record.regCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditGrade != null" >
+        credit_grade = #{record.creditGrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan_gcn
+    set gcn_id = #{record.gcnId,jdbcType=INTEGER},
+      loan_id = #{record.loanId,jdbcType=VARCHAR},
+      guar_company_name = #{record.guarCompanyName,jdbcType=VARCHAR},
+      guar_company_phone = #{record.guarCompanyPhone,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      company_code = #{record.companyCode,jdbcType=VARCHAR},
+      reg_capital = #{record.regCapital,jdbcType=VARCHAR},
+      credit_grade = #{record.creditGrade,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanGcn" >
+    update fm_loan_gcn
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="guarCompanyName != null" >
+        guar_company_name = #{guarCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="guarCompanyPhone != null" >
+        guar_company_phone = #{guarCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regCapital != null" >
+        reg_capital = #{regCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="creditGrade != null" >
+        credit_grade = #{creditGrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gcn_id = #{gcnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanGcn" >
+    update fm_loan_gcn
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      guar_company_name = #{guarCompanyName,jdbcType=VARCHAR},
+      guar_company_phone = #{guarCompanyPhone,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      reg_capital = #{regCapital,jdbcType=VARCHAR},
+      credit_grade = #{creditGrade,jdbcType=VARCHAR}
+    where gcn_id = #{gcnId,jdbcType=INTEGER}
+  </update>
+</mapper>

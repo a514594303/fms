@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.rbac.mapper.FmResPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.rbac.po.FmResPermission" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PERMISSION_TYPE" property="permissionType" jdbcType="VARCHAR" />
+    <result column="PERMISSION_ID" property="permissionId" jdbcType="VARCHAR" />
+    <result column="RESOURCES_ID" property="resourcesId" jdbcType="VARCHAR" />
+    <result column="BLACK_WHITE" property="blackWhite" jdbcType="VARCHAR" />
+    <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PERMISSION_TYPE, PERMISSION_ID, RESOURCES_ID, BLACK_WHITE, REMARK1
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.rbac.po.FmResPermissionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FM_RES_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FM_RES_PERMISSION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FM_RES_PERMISSION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.rbac.po.FmResPermissionExample" >
+    delete from FM_RES_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.rbac.po.FmResPermission" >
+    insert into FM_RES_PERMISSION (ID, PERMISSION_TYPE, PERMISSION_ID, 
+      RESOURCES_ID, BLACK_WHITE, REMARK1
+      )
+    values (#{id,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR}, 
+      #{resourcesId,jdbcType=VARCHAR}, #{blackWhite,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.rbac.po.FmResPermission" >
+    insert into FM_RES_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="permissionType != null" >
+        PERMISSION_TYPE,
+      </if>
+      <if test="permissionId != null" >
+        PERMISSION_ID,
+      </if>
+      <if test="resourcesId != null" >
+        RESOURCES_ID,
+      </if>
+      <if test="blackWhite != null" >
+        BLACK_WHITE,
+      </if>
+      <if test="remark1 != null" >
+        REMARK1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesId != null" >
+        #{resourcesId,jdbcType=VARCHAR},
+      </if>
+      <if test="blackWhite != null" >
+        #{blackWhite,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.rbac.po.FmResPermissionExample" resultType="java.lang.Integer" >
+    select count(*) from FM_RES_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FM_RES_PERMISSION
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionType != null" >
+        PERMISSION_TYPE = #{record.permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionId != null" >
+        PERMISSION_ID = #{record.permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourcesId != null" >
+        RESOURCES_ID = #{record.resourcesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackWhite != null" >
+        BLACK_WHITE = #{record.blackWhite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        REMARK1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FM_RES_PERMISSION
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PERMISSION_TYPE = #{record.permissionType,jdbcType=VARCHAR},
+      PERMISSION_ID = #{record.permissionId,jdbcType=VARCHAR},
+      RESOURCES_ID = #{record.resourcesId,jdbcType=VARCHAR},
+      BLACK_WHITE = #{record.blackWhite,jdbcType=VARCHAR},
+      REMARK1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.rbac.po.FmResPermission" >
+    update FM_RES_PERMISSION
+    <set >
+      <if test="permissionType != null" >
+        PERMISSION_TYPE = #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null" >
+        PERMISSION_ID = #{permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourcesId != null" >
+        RESOURCES_ID = #{resourcesId,jdbcType=VARCHAR},
+      </if>
+      <if test="blackWhite != null" >
+        BLACK_WHITE = #{blackWhite,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.rbac.po.FmResPermission" >
+    update FM_RES_PERMISSION
+    set PERMISSION_TYPE = #{permissionType,jdbcType=VARCHAR},
+      PERMISSION_ID = #{permissionId,jdbcType=VARCHAR},
+      RESOURCES_ID = #{resourcesId,jdbcType=VARCHAR},
+      BLACK_WHITE = #{blackWhite,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanCollMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanColl" >
+    <id column="coll_id" property="collId" jdbcType="INTEGER" />
+    <result column="loan_id" property="loanId" jdbcType="VARCHAR" />
+    <result column="coll_type" property="collType" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="coll_value" property="collValue" jdbcType="VARCHAR" />
+    <result column="real_estate_name1" property="realEstateName1" jdbcType="VARCHAR" />
+    <result column="real_estate_addr1" property="realEstateAddr1" jdbcType="VARCHAR" />
+    <result column="real_estate_postcode1" property="realEstatePostcode1" jdbcType="VARCHAR" />
+    <result column="real_estate_area1" property="realEstateArea1" jdbcType="VARCHAR" />
+    <result column="real_estate_num1" property="realEstateNum1" jdbcType="VARCHAR" />
+    <result column="real_estate_name2" property="realEstateName2" jdbcType="VARCHAR" />
+    <result column="real_estate_addr2" property="realEstateAddr2" jdbcType="VARCHAR" />
+    <result column="real_estate_postcode2" property="realEstatePostcode2" jdbcType="VARCHAR" />
+    <result column="real_estate_area2" property="realEstateArea2" jdbcType="VARCHAR" />
+    <result column="real_estate_num2" property="realEstateNum2" jdbcType="VARCHAR" />
+    <result column="car_brand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="car_model" property="carModel" jdbcType="VARCHAR" />
+    <result column="car_price" property="carPrice" jdbcType="VARCHAR" />
+    <result column="eng_num" property="engNum" jdbcType="VARCHAR" />
+    <result column="driv_lic_num" property="drivLicNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    coll_id, loan_id, coll_type, owner, coll_value, real_estate_name1, real_estate_addr1, 
+    real_estate_postcode1, real_estate_area1, real_estate_num1, real_estate_name2, real_estate_addr2, 
+    real_estate_postcode2, real_estate_area2, real_estate_num2, car_brand, car_model, 
+    car_price, eng_num, driv_lic_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanCollExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan_coll
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan_coll
+    where coll_id = #{collId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan_coll
+    where coll_id = #{collId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanCollExample" >
+    delete from fm_loan_coll
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanColl" >
+    <selectKey resultType="java.lang.Integer" keyProperty="collId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_coll (loan_id, coll_type, owner, 
+      coll_value, real_estate_name1, real_estate_addr1, 
+      real_estate_postcode1, real_estate_area1, real_estate_num1, 
+      real_estate_name2, real_estate_addr2, real_estate_postcode2, 
+      real_estate_area2, real_estate_num2, car_brand, 
+      car_model, car_price, eng_num, 
+      driv_lic_num)
+    values (#{loanId,jdbcType=VARCHAR}, #{collType,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, 
+      #{collValue,jdbcType=VARCHAR}, #{realEstateName1,jdbcType=VARCHAR}, #{realEstateAddr1,jdbcType=VARCHAR}, 
+      #{realEstatePostcode1,jdbcType=VARCHAR}, #{realEstateArea1,jdbcType=VARCHAR}, #{realEstateNum1,jdbcType=VARCHAR}, 
+      #{realEstateName2,jdbcType=VARCHAR}, #{realEstateAddr2,jdbcType=VARCHAR}, #{realEstatePostcode2,jdbcType=VARCHAR}, 
+      #{realEstateArea2,jdbcType=VARCHAR}, #{realEstateNum2,jdbcType=VARCHAR}, #{carBrand,jdbcType=VARCHAR}, 
+      #{carModel,jdbcType=VARCHAR}, #{carPrice,jdbcType=VARCHAR}, #{engNum,jdbcType=VARCHAR}, 
+      #{drivLicNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanColl" >
+    <selectKey resultType="java.lang.Integer" keyProperty="collId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan_coll
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        loan_id,
+      </if>
+      <if test="collType != null" >
+        coll_type,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="collValue != null" >
+        coll_value,
+      </if>
+      <if test="realEstateName1 != null" >
+        real_estate_name1,
+      </if>
+      <if test="realEstateAddr1 != null" >
+        real_estate_addr1,
+      </if>
+      <if test="realEstatePostcode1 != null" >
+        real_estate_postcode1,
+      </if>
+      <if test="realEstateArea1 != null" >
+        real_estate_area1,
+      </if>
+      <if test="realEstateNum1 != null" >
+        real_estate_num1,
+      </if>
+      <if test="realEstateName2 != null" >
+        real_estate_name2,
+      </if>
+      <if test="realEstateAddr2 != null" >
+        real_estate_addr2,
+      </if>
+      <if test="realEstatePostcode2 != null" >
+        real_estate_postcode2,
+      </if>
+      <if test="realEstateArea2 != null" >
+        real_estate_area2,
+      </if>
+      <if test="realEstateNum2 != null" >
+        real_estate_num2,
+      </if>
+      <if test="carBrand != null" >
+        car_brand,
+      </if>
+      <if test="carModel != null" >
+        car_model,
+      </if>
+      <if test="carPrice != null" >
+        car_price,
+      </if>
+      <if test="engNum != null" >
+        eng_num,
+      </if>
+      <if test="drivLicNum != null" >
+        driv_lic_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanId != null" >
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="collType != null" >
+        #{collType,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="collValue != null" >
+        #{collValue,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateName1 != null" >
+        #{realEstateName1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateAddr1 != null" >
+        #{realEstateAddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstatePostcode1 != null" >
+        #{realEstatePostcode1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateArea1 != null" >
+        #{realEstateArea1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateNum1 != null" >
+        #{realEstateNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateName2 != null" >
+        #{realEstateName2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateAddr2 != null" >
+        #{realEstateAddr2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstatePostcode2 != null" >
+        #{realEstatePostcode2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateArea2 != null" >
+        #{realEstateArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateNum2 != null" >
+        #{realEstateNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null" >
+        #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carPrice != null" >
+        #{carPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="engNum != null" >
+        #{engNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drivLicNum != null" >
+        #{drivLicNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanCollExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan_coll
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan_coll
+    <set >
+      <if test="record.collId != null" >
+        coll_id = #{record.collId,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanId != null" >
+        loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collType != null" >
+        coll_type = #{record.collType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null" >
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collValue != null" >
+        coll_value = #{record.collValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateName1 != null" >
+        real_estate_name1 = #{record.realEstateName1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateAddr1 != null" >
+        real_estate_addr1 = #{record.realEstateAddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstatePostcode1 != null" >
+        real_estate_postcode1 = #{record.realEstatePostcode1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateArea1 != null" >
+        real_estate_area1 = #{record.realEstateArea1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateNum1 != null" >
+        real_estate_num1 = #{record.realEstateNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateName2 != null" >
+        real_estate_name2 = #{record.realEstateName2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateAddr2 != null" >
+        real_estate_addr2 = #{record.realEstateAddr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstatePostcode2 != null" >
+        real_estate_postcode2 = #{record.realEstatePostcode2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateArea2 != null" >
+        real_estate_area2 = #{record.realEstateArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realEstateNum2 != null" >
+        real_estate_num2 = #{record.realEstateNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carBrand != null" >
+        car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carModel != null" >
+        car_model = #{record.carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carPrice != null" >
+        car_price = #{record.carPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engNum != null" >
+        eng_num = #{record.engNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drivLicNum != null" >
+        driv_lic_num = #{record.drivLicNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan_coll
+    set coll_id = #{record.collId,jdbcType=INTEGER},
+      loan_id = #{record.loanId,jdbcType=VARCHAR},
+      coll_type = #{record.collType,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      coll_value = #{record.collValue,jdbcType=VARCHAR},
+      real_estate_name1 = #{record.realEstateName1,jdbcType=VARCHAR},
+      real_estate_addr1 = #{record.realEstateAddr1,jdbcType=VARCHAR},
+      real_estate_postcode1 = #{record.realEstatePostcode1,jdbcType=VARCHAR},
+      real_estate_area1 = #{record.realEstateArea1,jdbcType=VARCHAR},
+      real_estate_num1 = #{record.realEstateNum1,jdbcType=VARCHAR},
+      real_estate_name2 = #{record.realEstateName2,jdbcType=VARCHAR},
+      real_estate_addr2 = #{record.realEstateAddr2,jdbcType=VARCHAR},
+      real_estate_postcode2 = #{record.realEstatePostcode2,jdbcType=VARCHAR},
+      real_estate_area2 = #{record.realEstateArea2,jdbcType=VARCHAR},
+      real_estate_num2 = #{record.realEstateNum2,jdbcType=VARCHAR},
+      car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      car_model = #{record.carModel,jdbcType=VARCHAR},
+      car_price = #{record.carPrice,jdbcType=VARCHAR},
+      eng_num = #{record.engNum,jdbcType=VARCHAR},
+      driv_lic_num = #{record.drivLicNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanColl" >
+    update fm_loan_coll
+    <set >
+      <if test="loanId != null" >
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="collType != null" >
+        coll_type = #{collType,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="collValue != null" >
+        coll_value = #{collValue,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateName1 != null" >
+        real_estate_name1 = #{realEstateName1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateAddr1 != null" >
+        real_estate_addr1 = #{realEstateAddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstatePostcode1 != null" >
+        real_estate_postcode1 = #{realEstatePostcode1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateArea1 != null" >
+        real_estate_area1 = #{realEstateArea1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateNum1 != null" >
+        real_estate_num1 = #{realEstateNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateName2 != null" >
+        real_estate_name2 = #{realEstateName2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateAddr2 != null" >
+        real_estate_addr2 = #{realEstateAddr2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstatePostcode2 != null" >
+        real_estate_postcode2 = #{realEstatePostcode2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateArea2 != null" >
+        real_estate_area2 = #{realEstateArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="realEstateNum2 != null" >
+        real_estate_num2 = #{realEstateNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        car_brand = #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null" >
+        car_model = #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carPrice != null" >
+        car_price = #{carPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="engNum != null" >
+        eng_num = #{engNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drivLicNum != null" >
+        driv_lic_num = #{drivLicNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coll_id = #{collId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanColl" >
+    update fm_loan_coll
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      coll_type = #{collType,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      coll_value = #{collValue,jdbcType=VARCHAR},
+      real_estate_name1 = #{realEstateName1,jdbcType=VARCHAR},
+      real_estate_addr1 = #{realEstateAddr1,jdbcType=VARCHAR},
+      real_estate_postcode1 = #{realEstatePostcode1,jdbcType=VARCHAR},
+      real_estate_area1 = #{realEstateArea1,jdbcType=VARCHAR},
+      real_estate_num1 = #{realEstateNum1,jdbcType=VARCHAR},
+      real_estate_name2 = #{realEstateName2,jdbcType=VARCHAR},
+      real_estate_addr2 = #{realEstateAddr2,jdbcType=VARCHAR},
+      real_estate_postcode2 = #{realEstatePostcode2,jdbcType=VARCHAR},
+      real_estate_area2 = #{realEstateArea2,jdbcType=VARCHAR},
+      real_estate_num2 = #{realEstateNum2,jdbcType=VARCHAR},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_model = #{carModel,jdbcType=VARCHAR},
+      car_price = #{carPrice,jdbcType=VARCHAR},
+      eng_num = #{engNum,jdbcType=VARCHAR},
+      driv_lic_num = #{drivLicNum,jdbcType=VARCHAR}
+    where coll_id = #{collId,jdbcType=INTEGER}
+  </update>
+</mapper>

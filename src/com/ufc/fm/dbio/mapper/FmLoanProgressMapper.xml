@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanProgressMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoanProgress" >
+    <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="LOAN_DATE" property="loanDate" jdbcType="VARCHAR" />
+    <result column="LOAN_AMOUNT" property="loanAmount" jdbcType="VARCHAR" />
+    <result column="LOAN_STATUS" property="loanStatus" jdbcType="VARCHAR" />
+    <result column="LOAN_REJREASON" property="loanRejreason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUST_ID, CUST_NAME, LOAN_DATE, LOAN_AMOUNT, LOAN_STATUS, LOAN_REJREASON
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanProgressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FM_LOAN_PROGRESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FM_LOAN_PROGRESS
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FM_LOAN_PROGRESS
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanProgressExample" >
+    delete from FM_LOAN_PROGRESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoanProgress" >
+    insert into FM_LOAN_PROGRESS (CUST_ID, CUST_NAME, LOAN_DATE, 
+      LOAN_AMOUNT, LOAN_STATUS, LOAN_REJREASON
+      )
+    values (#{custId,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{loanDate,jdbcType=VARCHAR}, 
+      #{loanAmount,jdbcType=VARCHAR}, #{loanStatus,jdbcType=VARCHAR}, #{loanRejreason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoanProgress" >
+    insert into FM_LOAN_PROGRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="loanDate != null" >
+        LOAN_DATE,
+      </if>
+      <if test="loanAmount != null" >
+        LOAN_AMOUNT,
+      </if>
+      <if test="loanStatus != null" >
+        LOAN_STATUS,
+      </if>
+      <if test="loanRejreason != null" >
+        LOAN_REJREASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDate != null" >
+        #{loanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanStatus != null" >
+        #{loanStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRejreason != null" >
+        #{loanRejreason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanProgressExample" resultType="java.lang.Integer" >
+    select count(*) from FM_LOAN_PROGRESS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FM_LOAN_PROGRESS
+    <set >
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custName != null" >
+        CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanDate != null" >
+        LOAN_DATE = #{record.loanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanAmount != null" >
+        LOAN_AMOUNT = #{record.loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanStatus != null" >
+        LOAN_STATUS = #{record.loanStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanRejreason != null" >
+        LOAN_REJREASON = #{record.loanRejreason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FM_LOAN_PROGRESS
+    set CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      LOAN_DATE = #{record.loanDate,jdbcType=VARCHAR},
+      LOAN_AMOUNT = #{record.loanAmount,jdbcType=VARCHAR},
+      LOAN_STATUS = #{record.loanStatus,jdbcType=VARCHAR},
+      LOAN_REJREASON = #{record.loanRejreason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoanProgress" >
+    update FM_LOAN_PROGRESS
+    <set >
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanDate != null" >
+        LOAN_DATE = #{loanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        LOAN_AMOUNT = #{loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanStatus != null" >
+        LOAN_STATUS = #{loanStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRejreason != null" >
+        LOAN_REJREASON = #{loanRejreason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoanProgress" >
+    update FM_LOAN_PROGRESS
+    set CUST_NAME = #{custName,jdbcType=VARCHAR},
+      LOAN_DATE = #{loanDate,jdbcType=VARCHAR},
+      LOAN_AMOUNT = #{loanAmount,jdbcType=VARCHAR},
+      LOAN_STATUS = #{loanStatus,jdbcType=VARCHAR},
+      LOAN_REJREASON = #{loanRejreason,jdbcType=VARCHAR}
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmLoanMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmLoan" >
+    <id column="loan_id" property="loanId" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+    <result column="loan_amount" property="loanAmount" jdbcType="VARCHAR" />
+    <result column="loan_period" property="loanPeriod" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="rep_method" property="repMethod" jdbcType="VARCHAR" />
+    <result column="rep_type" property="repType" jdbcType="VARCHAR" />
+    <result column="rep_account" property="repAccount" jdbcType="VARCHAR" />
+    <result column="loan_application" property="loanApplication" jdbcType="VARCHAR" />
+    <result column="mort_mode" property="mortMode" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="rec_account" property="recAccount" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    loan_id, cust_id, task_id, loan_amount, loan_period, rate, rep_method, rep_type, 
+    rep_account, loan_application, mort_mode, account_name, bank_name, rec_account, contact
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmLoanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_loan
+    where loan_id = #{loanId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_loan
+    where loan_id = #{loanId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmLoanExample" >
+    delete from fm_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmLoan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="loanId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan (cust_id, task_id, loan_amount, 
+      loan_period, rate, rep_method, 
+      rep_type, rep_account, loan_application, 
+      mort_mode, account_name, bank_name, 
+      rec_account, contact)
+    values (#{custId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{loanAmount,jdbcType=VARCHAR}, 
+      #{loanPeriod,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{repMethod,jdbcType=VARCHAR}, 
+      #{repType,jdbcType=VARCHAR}, #{repAccount,jdbcType=VARCHAR}, #{loanApplication,jdbcType=VARCHAR}, 
+      #{mortMode,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{recAccount,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmLoan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="loanId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="repMethod != null" >
+        rep_method,
+      </if>
+      <if test="repType != null" >
+        rep_type,
+      </if>
+      <if test="repAccount != null" >
+        rep_account,
+      </if>
+      <if test="loanApplication != null" >
+        loan_application,
+      </if>
+      <if test="mortMode != null" >
+        mort_mode,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="recAccount != null" >
+        rec_account,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        #{loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="repMethod != null" >
+        #{repMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="repType != null" >
+        #{repType,jdbcType=VARCHAR},
+      </if>
+      <if test="repAccount != null" >
+        #{repAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplication != null" >
+        #{loanApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="mortMode != null" >
+        #{mortMode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="recAccount != null" >
+        #{recAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmLoanExample" resultType="java.lang.Integer" >
+    select count(*) from fm_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_loan
+    <set >
+      <if test="record.loanId != null" >
+        loan_id = #{record.loanId,jdbcType=INTEGER},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanAmount != null" >
+        loan_amount = #{record.loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPeriod != null" >
+        loan_period = #{record.loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repMethod != null" >
+        rep_method = #{record.repMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repType != null" >
+        rep_type = #{record.repType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repAccount != null" >
+        rep_account = #{record.repAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanApplication != null" >
+        loan_application = #{record.loanApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mortMode != null" >
+        mort_mode = #{record.mortMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountName != null" >
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recAccount != null" >
+        rec_account = #{record.recAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null" >
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_loan
+    set loan_id = #{record.loanId,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=VARCHAR},
+      loan_amount = #{record.loanAmount,jdbcType=VARCHAR},
+      loan_period = #{record.loanPeriod,jdbcType=VARCHAR},
+      rate = #{record.rate,jdbcType=VARCHAR},
+      rep_method = #{record.repMethod,jdbcType=VARCHAR},
+      rep_type = #{record.repType,jdbcType=VARCHAR},
+      rep_account = #{record.repAccount,jdbcType=VARCHAR},
+      loan_application = #{record.loanApplication,jdbcType=VARCHAR},
+      mort_mode = #{record.mortMode,jdbcType=VARCHAR},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      rec_account = #{record.recAccount,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmLoan" >
+    update fm_loan
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period = #{loanPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="repMethod != null" >
+        rep_method = #{repMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="repType != null" >
+        rep_type = #{repType,jdbcType=VARCHAR},
+      </if>
+      <if test="repAccount != null" >
+        rep_account = #{repAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanApplication != null" >
+        loan_application = #{loanApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="mortMode != null" >
+        mort_mode = #{mortMode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="recAccount != null" >
+        rec_account = #{recAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loan_id = #{loanId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmLoan" >
+    update fm_loan
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=VARCHAR},
+      loan_period = #{loanPeriod,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      rep_method = #{repMethod,jdbcType=VARCHAR},
+      rep_type = #{repType,jdbcType=VARCHAR},
+      rep_account = #{repAccount,jdbcType=VARCHAR},
+      loan_application = #{loanApplication,jdbcType=VARCHAR},
+      mort_mode = #{mortMode,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      rec_account = #{recAccount,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR}
+    where loan_id = #{loanId,jdbcType=INTEGER}
+  </update>
+</mapper>

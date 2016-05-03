@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ufc.fm.dbio.mapper.FmCustMapper" >
+  <resultMap id="BaseResultMap" type="com.ufc.fm.dbio.po.FmCust" >
+    <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="VARCHAR" />
+    <result column="IDENTITY_TYPE" property="identityType" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR" />
+    <result column="EXPIRY_DATE" property="expiryDate" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NAME_SPELL" property="nameSpell" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="OCCUPATION" property="occupation" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="HGST_DEGREE" property="hgstDegree" jdbcType="VARCHAR" />
+    <result column="MARITAL_STATUS" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="SUPPORT_NUM" property="supportNum" jdbcType="VARCHAR" />
+    <result column="ANNUAL_SALARY" property="annualSalary" jdbcType="VARCHAR" />
+    <result column="HOME_ADDR" property="homeAddr" jdbcType="VARCHAR" />
+    <result column="HOME_POSTCODE" property="homePostcode" jdbcType="VARCHAR" />
+    <result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+    <result column="DOMICILE_PLACE" property="domicilePlace" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_ADDR" property="companyAddr" jdbcType="VARCHAR" />
+    <result column="COMPANY_POSTCODE" property="companyPostcode" jdbcType="VARCHAR" />
+    <result column="COMPANY_PHONE" property="companyPhone" jdbcType="VARCHAR" />
+    <result column="COMPANY_DEPT" property="companyDept" jdbcType="VARCHAR" />
+    <result column="COMPANY_DUTY" property="companyDuty" jdbcType="VARCHAR" />
+    <result column="COMPANY_PROP" property="companyProp" jdbcType="VARCHAR" />
+    <result column="COMPANY_SCALE" property="companyScale" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUST_ID, CUST_TYPE, IDENTITY_TYPE, CREATE_DATE, IDENTITY_CARD, EXPIRY_DATE, NAME, 
+    NAME_SPELL, GENDER, BIRTHDAY, EMAIL, OCCUPATION, MOBILE_PHONE, HGST_DEGREE, MARITAL_STATUS, 
+    SUPPORT_NUM, ANNUAL_SALARY, HOME_ADDR, HOME_POSTCODE, HOME_PHONE, DOMICILE_PLACE, 
+    COMPANY_NAME, COMPANY_ADDR, COMPANY_POSTCODE, COMPANY_PHONE, COMPANY_DEPT, COMPANY_DUTY, 
+    COMPANY_PROP, COMPANY_SCALE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ufc.fm.dbio.po.FmCustExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FM_CUST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FM_CUST
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FM_CUST
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ufc.fm.dbio.po.FmCustExample" >
+    delete from FM_CUST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ufc.fm.dbio.po.FmCust" >
+    insert into FM_CUST (CUST_ID, CUST_TYPE, IDENTITY_TYPE, 
+      CREATE_DATE, IDENTITY_CARD, EXPIRY_DATE, 
+      NAME, NAME_SPELL, GENDER, 
+      BIRTHDAY, EMAIL, OCCUPATION, 
+      MOBILE_PHONE, HGST_DEGREE, MARITAL_STATUS, 
+      SUPPORT_NUM, ANNUAL_SALARY, HOME_ADDR, 
+      HOME_POSTCODE, HOME_PHONE, DOMICILE_PLACE, 
+      COMPANY_NAME, COMPANY_ADDR, COMPANY_POSTCODE, 
+      COMPANY_PHONE, COMPANY_DEPT, COMPANY_DUTY, 
+      COMPANY_PROP, COMPANY_SCALE)
+    values (#{custId,jdbcType=VARCHAR}, #{custType,jdbcType=VARCHAR}, #{identityType,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR}, #{identityCard,jdbcType=VARCHAR}, #{expiryDate,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{nameSpell,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{occupation,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR}, #{hgstDegree,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR}, 
+      #{supportNum,jdbcType=VARCHAR}, #{annualSalary,jdbcType=VARCHAR}, #{homeAddr,jdbcType=VARCHAR}, 
+      #{homePostcode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{domicilePlace,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyAddr,jdbcType=VARCHAR}, #{companyPostcode,jdbcType=VARCHAR}, 
+      #{companyPhone,jdbcType=VARCHAR}, #{companyDept,jdbcType=VARCHAR}, #{companyDuty,jdbcType=VARCHAR}, 
+      #{companyProp,jdbcType=VARCHAR}, #{companyScale,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ufc.fm.dbio.po.FmCust" >
+    insert into FM_CUST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="identityType != null" >
+        IDENTITY_TYPE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="identityCard != null" >
+        IDENTITY_CARD,
+      </if>
+      <if test="expiryDate != null" >
+        EXPIRY_DATE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="nameSpell != null" >
+        NAME_SPELL,
+      </if>
+      <if test="gender != null" >
+        GENDER,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="occupation != null" >
+        OCCUPATION,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="hgstDegree != null" >
+        HGST_DEGREE,
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS,
+      </if>
+      <if test="supportNum != null" >
+        SUPPORT_NUM,
+      </if>
+      <if test="annualSalary != null" >
+        ANNUAL_SALARY,
+      </if>
+      <if test="homeAddr != null" >
+        HOME_ADDR,
+      </if>
+      <if test="homePostcode != null" >
+        HOME_POSTCODE,
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE,
+      </if>
+      <if test="domicilePlace != null" >
+        DOMICILE_PLACE,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="companyAddr != null" >
+        COMPANY_ADDR,
+      </if>
+      <if test="companyPostcode != null" >
+        COMPANY_POSTCODE,
+      </if>
+      <if test="companyPhone != null" >
+        COMPANY_PHONE,
+      </if>
+      <if test="companyDept != null" >
+        COMPANY_DEPT,
+      </if>
+      <if test="companyDuty != null" >
+        COMPANY_DUTY,
+      </if>
+      <if test="companyProp != null" >
+        COMPANY_PROP,
+      </if>
+      <if test="companyScale != null" >
+        COMPANY_SCALE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="identityType != null" >
+        #{identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null" >
+        #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryDate != null" >
+        #{expiryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameSpell != null" >
+        #{nameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null" >
+        #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hgstDegree != null" >
+        #{hgstDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="supportNum != null" >
+        #{supportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="annualSalary != null" >
+        #{annualSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddr != null" >
+        #{homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="homePostcode != null" >
+        #{homePostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="domicilePlace != null" >
+        #{domicilePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddr != null" >
+        #{companyAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPostcode != null" >
+        #{companyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDept != null" >
+        #{companyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDuty != null" >
+        #{companyDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProp != null" >
+        #{companyProp,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        #{companyScale,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ufc.fm.dbio.po.FmCustExample" resultType="java.lang.Integer" >
+    select count(*) from FM_CUST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FM_CUST
+    <set >
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custType != null" >
+        CUST_TYPE = #{record.custType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityType != null" >
+        IDENTITY_TYPE = #{record.identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityCard != null" >
+        IDENTITY_CARD = #{record.identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiryDate != null" >
+        EXPIRY_DATE = #{record.expiryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameSpell != null" >
+        NAME_SPELL = #{record.nameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        GENDER = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.occupation != null" >
+        OCCUPATION = #{record.occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null" >
+        MOBILE_PHONE = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hgstDegree != null" >
+        HGST_DEGREE = #{record.hgstDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maritalStatus != null" >
+        MARITAL_STATUS = #{record.maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supportNum != null" >
+        SUPPORT_NUM = #{record.supportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.annualSalary != null" >
+        ANNUAL_SALARY = #{record.annualSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAddr != null" >
+        HOME_ADDR = #{record.homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homePostcode != null" >
+        HOME_POSTCODE = #{record.homePostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homePhone != null" >
+        HOME_PHONE = #{record.homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domicilePlace != null" >
+        DOMICILE_PLACE = #{record.domicilePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAddr != null" >
+        COMPANY_ADDR = #{record.companyAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPostcode != null" >
+        COMPANY_POSTCODE = #{record.companyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPhone != null" >
+        COMPANY_PHONE = #{record.companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyDept != null" >
+        COMPANY_DEPT = #{record.companyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyDuty != null" >
+        COMPANY_DUTY = #{record.companyDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyProp != null" >
+        COMPANY_PROP = #{record.companyProp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyScale != null" >
+        COMPANY_SCALE = #{record.companyScale,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FM_CUST
+    set CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      CUST_TYPE = #{record.custType,jdbcType=VARCHAR},
+      IDENTITY_TYPE = #{record.identityType,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      IDENTITY_CARD = #{record.identityCard,jdbcType=VARCHAR},
+      EXPIRY_DATE = #{record.expiryDate,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      NAME_SPELL = #{record.nameSpell,jdbcType=VARCHAR},
+      GENDER = #{record.gender,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      OCCUPATION = #{record.occupation,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{record.mobilePhone,jdbcType=VARCHAR},
+      HGST_DEGREE = #{record.hgstDegree,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{record.maritalStatus,jdbcType=VARCHAR},
+      SUPPORT_NUM = #{record.supportNum,jdbcType=VARCHAR},
+      ANNUAL_SALARY = #{record.annualSalary,jdbcType=VARCHAR},
+      HOME_ADDR = #{record.homeAddr,jdbcType=VARCHAR},
+      HOME_POSTCODE = #{record.homePostcode,jdbcType=VARCHAR},
+      HOME_PHONE = #{record.homePhone,jdbcType=VARCHAR},
+      DOMICILE_PLACE = #{record.domicilePlace,jdbcType=VARCHAR},
+      COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      COMPANY_ADDR = #{record.companyAddr,jdbcType=VARCHAR},
+      COMPANY_POSTCODE = #{record.companyPostcode,jdbcType=VARCHAR},
+      COMPANY_PHONE = #{record.companyPhone,jdbcType=VARCHAR},
+      COMPANY_DEPT = #{record.companyDept,jdbcType=VARCHAR},
+      COMPANY_DUTY = #{record.companyDuty,jdbcType=VARCHAR},
+      COMPANY_PROP = #{record.companyProp,jdbcType=VARCHAR},
+      COMPANY_SCALE = #{record.companyScale,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ufc.fm.dbio.po.FmCust" >
+    update FM_CUST
+    <set >
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="identityType != null" >
+        IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null" >
+        IDENTITY_CARD = #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryDate != null" >
+        EXPIRY_DATE = #{expiryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameSpell != null" >
+        NAME_SPELL = #{nameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        GENDER = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null" >
+        OCCUPATION = #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hgstDegree != null" >
+        HGST_DEGREE = #{hgstDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="supportNum != null" >
+        SUPPORT_NUM = #{supportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="annualSalary != null" >
+        ANNUAL_SALARY = #{annualSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddr != null" >
+        HOME_ADDR = #{homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="homePostcode != null" >
+        HOME_POSTCODE = #{homePostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="domicilePlace != null" >
+        DOMICILE_PLACE = #{domicilePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddr != null" >
+        COMPANY_ADDR = #{companyAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPostcode != null" >
+        COMPANY_POSTCODE = #{companyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDept != null" >
+        COMPANY_DEPT = #{companyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDuty != null" >
+        COMPANY_DUTY = #{companyDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProp != null" >
+        COMPANY_PROP = #{companyProp,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        COMPANY_SCALE = #{companyScale,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ufc.fm.dbio.po.FmCust" >
+    update FM_CUST
+    set CUST_TYPE = #{custType,jdbcType=VARCHAR},
+      IDENTITY_TYPE = #{identityType,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      IDENTITY_CARD = #{identityCard,jdbcType=VARCHAR},
+      EXPIRY_DATE = #{expiryDate,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      NAME_SPELL = #{nameSpell,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      OCCUPATION = #{occupation,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      HGST_DEGREE = #{hgstDegree,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      SUPPORT_NUM = #{supportNum,jdbcType=VARCHAR},
+      ANNUAL_SALARY = #{annualSalary,jdbcType=VARCHAR},
+      HOME_ADDR = #{homeAddr,jdbcType=VARCHAR},
+      HOME_POSTCODE = #{homePostcode,jdbcType=VARCHAR},
+      HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      DOMICILE_PLACE = #{domicilePlace,jdbcType=VARCHAR},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      COMPANY_ADDR = #{companyAddr,jdbcType=VARCHAR},
+      COMPANY_POSTCODE = #{companyPostcode,jdbcType=VARCHAR},
+      COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+      COMPANY_DEPT = #{companyDept,jdbcType=VARCHAR},
+      COMPANY_DUTY = #{companyDuty,jdbcType=VARCHAR},
+      COMPANY_PROP = #{companyProp,jdbcType=VARCHAR},
+      COMPANY_SCALE = #{companyScale,jdbcType=VARCHAR}
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="maxPrimaryKey"  resultType="String" >
+    select max(CUST_ID)+1 from FM_CUST
+    
+  </select>
+  
+</mapper>
